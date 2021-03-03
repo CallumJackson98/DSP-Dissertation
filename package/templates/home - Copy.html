@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    {%  for post in posts.items %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                    <small class="text-muted">{{ post.date_posted.strftime('%H:%M') + ' ' + post.date_posted.strftime('%d/%m') }}</small>
+                </div>
+                <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content }}</p>
+            </div>
+        </article>
+    {%  endfor  %}
+    
+    {%  for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{  url_for('home', page=page_num) }}">{{ page_num }}</a>
+            
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{  url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+    
+   
+{% endblock content %}
+
+{% block control %}
+
+    <container id="contracted">
+        <footer class="site-footer">
+            <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-bottom">
+                <div class="container">
+                    <a class="navbar-brand mr-4" href="#">Controls</a>
+                </div>
+            </nav>
+            <footer class="footer-button-background">
+                <nav class="navbar bg-transparent fixed-bottom">
+                    <div class="container">
+                    </div>
+                    <div class="container-right">        
+                        <input type="image" id="imgClickAndChange" src="static/buttons/toggleup.png" onclick="toggleUp()"></input>
+                    </div>
+                </nav>
+            </footer>
+        </footer>
+    </container>
+    
+   
+    
+    
+    
+    
+    
+    <script>
+        document.getElementById("expanded").style.visibility = "hidden";
+        function toggleUp() {
+            document.getElementById("expanded").style.visibility = "visible";
+            document.getElementById("contracted").style.visibility = "hidden";
+        }
+        function toggleDown() {
+            document.getElementById("expanded").style.visibility = "hidden";
+            document.getElementById("contracted").style.visibility = "visible";
+        }
+    </script>
+    
+
+
+
+
+
+{% endblock control %}
+
+
+
+
+
+
+
+
+
+
+
