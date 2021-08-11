@@ -1,10 +1,7 @@
 
 
 def createNewPost(Post, agent):
-    
-    
-    
-    newPost = Post(title = "title", content = "content", author = agent)
+    newPost = Post(title = "title", content = "content", reaction = " ", author = agent)
     return(newPost)
 
 
